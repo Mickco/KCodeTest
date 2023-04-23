@@ -1,9 +1,9 @@
 package com.example.kcodetest.repository.model
 
-sealed class RepositoryResult<out DATA> {
-    data class Success<out DATA>(val data: DATA) : RepositoryResult<DATA>()
+sealed class KResult<out DATA> {
+    data class Success<out DATA>(val data: DATA) : KResult<DATA>()
     data class Fail(val errorCode: ErrorCode, val errorMessage: ErrorMessage? = null) :
-        RepositoryResult<Nothing>()
+        KResult<Nothing>()
 }
 
 data class ErrorMessage(

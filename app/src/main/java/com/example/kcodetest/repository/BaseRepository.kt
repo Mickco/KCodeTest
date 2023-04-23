@@ -2,7 +2,7 @@ package com.example.kcodetest.repository
 
 import com.example.kcodetest.repository.model.ErrorCode
 import com.example.kcodetest.repository.model.ErrorMessage
-import com.example.kcodetest.repository.model.RepositoryResult
+import com.example.kcodetest.repository.model.KResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Deferred
@@ -18,21 +18,21 @@ abstract class BaseRepository {
     suspend fun <T> executeAsyncCall(
         coroutineScope: CoroutineScope,
         apiCall: suspend () -> T
-    ): Deferred<RepositoryResult<T>> {
+    ): Deferred<KResult<T>> {
         return coroutineScope.async(Dispatchers.IO, start = CoroutineStart.LAZY) {
             try {
-                RepositoryResult.Success(apiCall())
+                KResult.Success(apiCall())
             } catch (e: Throwable) {
                 handleException(e)
             }
         }
     }
 
-    protected fun handleException(e: Throwable): RepositoryResult.Fail {
+    protected fun handleException(e: Throwable): KResult.Fail {
         return when (e) {
             is HttpException -> {
                 val res = e.response()
-                RepositoryResult.Fail(
+                KResult.Fail(
                     ErrorCode.HTTPError,
                     ErrorMessage(
                         code = res?.code() ?: DEFAULT_ERROR_MESSAGE_CODE,
@@ -41,9 +41,9 @@ abstract class BaseRepository {
                 )
             }
 
-            is UnknownHostException -> RepositoryResult.Fail(ErrorCode.ConnectionError)
-            is IOException -> RepositoryResult.Fail(ErrorCode.IOError)
-            else -> RepositoryResult.Fail(ErrorCode.UnknownError)
+            is UnknownHostException -> KResult.Fail(ErrorCode.ConnectionError)
+            is IOException -> KResult.Fail(ErrorCode.IOError)
+            else -> KResult.Fail(ErrorCode.UnknownError)
         }
     }
 

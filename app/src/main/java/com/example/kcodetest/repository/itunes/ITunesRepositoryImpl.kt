@@ -5,7 +5,7 @@ import com.example.kcodetest.datasource.local.model.AlbumBookmark
 import com.example.kcodetest.datasource.remote.service.ITunesApiService
 import com.example.kcodetest.repository.BaseRepository
 import com.example.kcodetest.repository.model.ITunesAlbum
-import com.example.kcodetest.repository.model.RepositoryResult
+import com.example.kcodetest.repository.model.KResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -20,14 +20,14 @@ class ITunesRepositoryImpl(
     private val albumBookmarkDao: AlbumBookmarkDao
 ) : BaseRepository() {
 
-    val bookmarkListFlow: Flow<RepositoryResult<List<Int>>> = albumBookmarkDao.getAll().map {
-        RepositoryResult.Success(it.map { it.collectionId }) as RepositoryResult<List<Int>>
+    val bookmarkListFlow: Flow<KResult<List<Int>>> = albumBookmarkDao.getAll().map {
+        KResult.Success(it.map { it.collectionId }) as KResult<List<Int>>
     }.catch { e ->
         emit(handleException(e))
     }.flowOn(Dispatchers.IO)
 
 
-    suspend fun getITunesResultAsync(coroutineScope: CoroutineScope): Deferred<RepositoryResult<List<ITunesAlbum>>> {
+    suspend fun getITunesResultAsync(coroutineScope: CoroutineScope): Deferred<KResult<List<ITunesAlbum>>> {
         return executeAsyncCall(coroutineScope) {
             val apiResult = iTunesApiService.getSearchResponse()
             apiResult.results.map {
@@ -45,7 +45,7 @@ class ITunesRepositoryImpl(
     suspend fun addBookmarkAsync(
         coroutineScope: CoroutineScope,
         collectionId: Int
-    ): Deferred<RepositoryResult<Unit>> {
+    ): Deferred<KResult<Unit>> {
         return executeAsyncCall(coroutineScope) {
             albumBookmarkDao.insert(albumBookmark = AlbumBookmark(collectionId))
         }
@@ -54,7 +54,7 @@ class ITunesRepositoryImpl(
     suspend fun deleteBookmarkAsync(
         coroutineScope: CoroutineScope,
         collectionId: Int
-    ): Deferred<RepositoryResult<Unit>> {
+    ): Deferred<KResult<Unit>> {
         return executeAsyncCall(coroutineScope) {
             albumBookmarkDao.delete(albumBookmark = AlbumBookmark(collectionId))
         }
