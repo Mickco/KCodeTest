@@ -2,6 +2,9 @@ package com.example.kcodetest.view.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.kcodetest.R
 import com.example.kcodetest.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,5 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        val navController = findNavController(R.id.mainActivityNavHostFragment)
+        binding.mainActivityBottomNavView.setupWithNavController(navController)
     }
 }
