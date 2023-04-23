@@ -30,17 +30,12 @@
 
         <TextView
             android:id="@+id/albumItemTitleTextView"
+            style="@style/TextWithShadow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:gravity="center"
             android:textSize="11sp"
-            android:textColor="@color/white"
-            android:text="wkj wlefkklw ejf lwkeflk wlwk dfkl wjlkf ejwlk jwelkf wlkwe wlke flkw "
-            android:shadowColor="#7F000000"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
