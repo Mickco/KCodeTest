@@ -28,6 +28,7 @@ class AlbumViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
+    // For internal
     private val _isLoading = MutableStateFlow(false)
     private val _albumListUI = MutableStateFlow<List<AlbumListItemUI>>(listOf())
     private val _bookmarkedAlbumListUI = MutableStateFlow<List<AlbumListItemUI>>(listOf())
@@ -41,6 +42,7 @@ class AlbumViewModel @Inject constructor(
             _bookmarkedAlbumListUI.value = _albumListUI.value.filter { it.isBookmarked }
         }.stateIn(viewModelScope, started = SharingStarted.Eagerly, listOf())
 
+    // For external
     val isLoading: StateFlow<Boolean> = _isLoading
     val albumListUI: StateFlow<List<AlbumListItemUI>> = _albumListUI
     val bookmarkedAlbumListUI: StateFlow<List<AlbumListItemUI>> = _bookmarkedAlbumListUI
@@ -78,6 +80,7 @@ class AlbumViewModel @Inject constructor(
         }
     }
 
+    // Add/Remove bookmark when user clicked bookmark icon
     fun onBookmarkClicked(item: AlbumListItemUI) {
         launchLoadingScope {
             when (item.isBookmarked) {

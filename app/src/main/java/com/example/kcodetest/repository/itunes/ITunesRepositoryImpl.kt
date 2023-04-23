@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
+/** This class demonstrate both the kotlin flow reactive way and coroutine/async way **/
 class ITunesRepositoryImpl(
     private val iTunesApiService: ITunesApiService,
     private val albumBookmarkDao: AlbumBookmarkDao

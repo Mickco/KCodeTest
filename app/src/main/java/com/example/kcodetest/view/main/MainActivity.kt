@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.mainActivityNavHostFragment)
         binding.mainActivityBottomNavView.setupWithNavController(navController)
 
-
         launchAndRepeatWithViewLifecycle {
             launch {
                 errorViewModel.displayErrorSnackbar.collect {

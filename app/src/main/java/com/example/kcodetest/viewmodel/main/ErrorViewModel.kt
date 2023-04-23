@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Named
 
+// This class process errors and display default error message if requested
 @HiltViewModel
 class ErrorViewModel @Inject constructor(
     @Named("errorDisplayRequest") private val _errorDisplayRequest: MutableSharedFlow<KResult.Fail>

@@ -44,9 +44,9 @@ class HomeFragment : Fragment() {
             homeFragmentRecyclerView.apply {
                 layoutManager = GridLayoutManager(context, NUM_COLUMN_COUNT)
                 this.adapter = adapter
-                (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+                (itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
+                    false //Disable flashes animation when an item changed
             }
-
 
             homeFragmentPullToRefresh.setOnRefreshListener {
                 viewModel.loadNewAlbumList()
