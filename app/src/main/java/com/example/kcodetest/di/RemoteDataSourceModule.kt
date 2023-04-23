@@ -1,9 +1,10 @@
 package com.example.kcodetest.di
 
 import android.content.Context
+import com.example.kcodetest.BuildConfig
 import com.example.kcodetest.BuildConstant
 import com.example.kcodetest.datasource.remote.interceptor.NetworkConnectionInterceptor
-import com.example.kcodetest.datasource.remote.model.ITunesSearchResponse
+import com.example.kcodetest.datasource.remote.service.ITunesApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,10 +25,13 @@ class RemoteDataSourceModule {
     fun provideOkHttpClient(
         @ApplicationContext context: Context
     ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        val builder = OkHttpClient.Builder()
             .addInterceptor(NetworkConnectionInterceptor(context))
-            .build()
+
+        if (BuildConfig.DEBUG) {
+            builder.addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        }
+        return builder.build()
     }
 
 
@@ -44,10 +48,10 @@ class RemoteDataSourceModule {
     }
 
     @Provides
-    fun provideITunesSearchResponse(
+    fun provideITunesApiService(
         retrofit: Retrofit
-    ): ITunesSearchResponse {
-        return retrofit.create(ITunesSearchResponse::class.java)
+    ): ITunesApiService {
+        return retrofit.create(ITunesApiService::class.java)
     }
 
 

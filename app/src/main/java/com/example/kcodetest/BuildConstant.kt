@@ -2,5 +2,7 @@ package com.example.kcodetest
 
 object BuildConstant {
 
-    val BASE_URL = "https://itunes.apple.com/"
+    const val BASE_URL = "https://itunes.apple.com/"
+
+    const val APP_DATABASE_NAME = "appDatabase"
 }
