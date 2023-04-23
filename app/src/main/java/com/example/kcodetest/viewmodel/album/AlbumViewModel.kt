@@ -1,4 +1,4 @@
-package com.example.kcodetest.viewmodel.home
+package com.example.kcodetest.viewmodel.album
 
 import androidx.lifecycle.viewModelScope
 import com.example.kcodetest.R

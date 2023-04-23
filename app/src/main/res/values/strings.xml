@@ -4,4 +4,6 @@
     <string name="nav_button_home">Home</string>
     <string name="nav_button_bookmark">Bookmark</string>
     <string name="album_item_title_format">%s\n%s</string>
+    <string name="network_error_message">Network Error Occurred</string>
+    <string name="unknown_error_message">Unknown Error Occurred</string>
 </resources>
