@@ -2,7 +2,7 @@ package com.example.kcodetest.viewmodel.album
 
 import androidx.lifecycle.viewModelScope
 import com.example.kcodetest.R
-import com.example.kcodetest.repository.itunes.ITunesRepositoryImpl
+import com.example.kcodetest.repository.itunes.ITunesRepository
 import com.example.kcodetest.repository.model.KResult
 import com.example.kcodetest.viewmodel.common.BaseViewModel
 import com.example.kcodetest.viewmodel.common.FormatWrap
@@ -23,7 +23,7 @@ import javax.inject.Named
 
 @HiltViewModel
 class AlbumViewModel @Inject constructor(
-    private val iTunesRepository: ITunesRepositoryImpl,
+    private val iTunesRepository: ITunesRepository,
     @Named("errorDisplayRequest") private val _errorDisplayRequest: MutableSharedFlow<KResult.Fail>
 ) : BaseViewModel() {
 

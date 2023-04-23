@@ -2,6 +2,7 @@ package com.example.kcodetest.di
 
 import com.example.kcodetest.datasource.local.dao.AlbumBookmarkDao
 import com.example.kcodetest.datasource.remote.service.ITunesApiService
+import com.example.kcodetest.repository.itunes.ITunesRepository
 import com.example.kcodetest.repository.itunes.ITunesRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -17,7 +18,7 @@ class RepositoryModule {
     fun provideITunesRepository(
         iTunesApiService: ITunesApiService,
         albumBookmarkDao: AlbumBookmarkDao
-    ): ITunesRepositoryImpl {
+    ): ITunesRepository {
         return ITunesRepositoryImpl(
             iTunesApiService = iTunesApiService,
             albumBookmarkDao = albumBookmarkDao

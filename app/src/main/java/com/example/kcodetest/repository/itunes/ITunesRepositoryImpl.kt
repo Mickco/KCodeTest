@@ -14,20 +14,19 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
-
 class ITunesRepositoryImpl(
     private val iTunesApiService: ITunesApiService,
     private val albumBookmarkDao: AlbumBookmarkDao
-) : BaseRepository() {
+) : BaseRepository(), ITunesRepository {
 
-    val bookmarkListFlow: Flow<KResult<List<Int>>> = albumBookmarkDao.getAll().map {
+    override val bookmarkListFlow: Flow<KResult<List<Int>>> = albumBookmarkDao.getAll().map {
         KResult.Success(it.map { it.collectionId }) as KResult<List<Int>>
     }.catch { e ->
         emit(handleException(e))
     }.flowOn(Dispatchers.IO)
 
 
-    suspend fun getITunesResultAsync(coroutineScope: CoroutineScope): Deferred<KResult<List<ITunesAlbum>>> {
+    override suspend fun getITunesResultAsync(coroutineScope: CoroutineScope): Deferred<KResult<List<ITunesAlbum>>> {
         return executeAsyncCall(coroutineScope) {
             val apiResult = iTunesApiService.getSearchResponse()
             apiResult.results.map {
@@ -42,7 +41,7 @@ class ITunesRepositoryImpl(
     }
 
 
-    suspend fun addBookmarkAsync(
+    override suspend fun addBookmarkAsync(
         coroutineScope: CoroutineScope,
         collectionId: Int
     ): Deferred<KResult<Unit>> {
@@ -51,7 +50,7 @@ class ITunesRepositoryImpl(
         }
     }
 
-    suspend fun deleteBookmarkAsync(
+    override suspend fun deleteBookmarkAsync(
         coroutineScope: CoroutineScope,
         collectionId: Int
     ): Deferred<KResult<Unit>> {
