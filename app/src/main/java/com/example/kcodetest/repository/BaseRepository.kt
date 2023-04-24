@@ -1,5 +1,6 @@
 package com.example.kcodetest.repository
 
+import androidx.annotation.VisibleForTesting
 import com.example.kcodetest.repository.model.ErrorCode
 import com.example.kcodetest.repository.model.ErrorMessage
 import com.example.kcodetest.repository.model.KResult
@@ -15,6 +16,7 @@ import java.net.UnknownHostException
 
 abstract class BaseRepository {
 
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     suspend fun <T> executeAsyncCall(
         coroutineScope: CoroutineScope,
         apiCall: suspend () -> T
