@@ -8,17 +8,17 @@ import kotlinx.coroutines.flow.Flow
 
 interface ITunesRepository {
 
-    val bookmarkListFlow: Flow<KResult<List<Int>>>
+    val bookmarkListFlow: Flow<KResult<List<String>>>
 
     suspend fun getITunesResultAsync(coroutineScope: CoroutineScope): Deferred<KResult<List<ITunesAlbum>>>
 
     suspend fun addBookmarkAsync(
         coroutineScope: CoroutineScope,
-        collectionId: Int
+        collectionId: String
     ): Deferred<KResult<Unit>>
 
     suspend fun deleteBookmarkAsync(
         coroutineScope: CoroutineScope,
-        collectionId: Int
+        collectionId: String
     ): Deferred<KResult<Unit>>
 }

@@ -32,8 +32,8 @@ class AlbumViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     private val _albumListUI = MutableStateFlow<List<AlbumListItemUI>>(listOf())
     private val _bookmarkedAlbumListUI = MutableStateFlow<List<AlbumListItemUI>>(listOf())
-    private val _bookmarkAlbumList: StateFlow<List<Int>> = iTunesRepository.bookmarkListFlow
-        .filterIsInstance<KResult.Success<List<Int>>>()
+    private val _bookmarkAlbumList: StateFlow<List<String>> = iTunesRepository.bookmarkListFlow
+        .filterIsInstance<KResult.Success<List<String>>>()
         .map { it.data }
         .onEach { list ->
             _albumListUI.value = _albumListUI.value.map {
@@ -104,7 +104,7 @@ class AlbumViewModel @Inject constructor(
 }
 
 data class AlbumListItemUI(
-    val collectionId: Int,
+    val collectionId: String,
     val imageUrl: TextWrap,
     val albumText: TextWrap,
     val isBookmarked: Boolean

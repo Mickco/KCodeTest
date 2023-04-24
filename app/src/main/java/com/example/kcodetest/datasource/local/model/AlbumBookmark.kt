@@ -5,5 +5,5 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class AlbumBookmark(
-    @PrimaryKey val collectionId: Int,
+    @PrimaryKey val collectionId: String,
 )

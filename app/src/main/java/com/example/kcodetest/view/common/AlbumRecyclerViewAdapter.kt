@@ -15,7 +15,7 @@ class AlbumRecyclerViewAdapter(private val onBookmarkClicked: (AlbumListItemUI) 
     var uiList: List<AlbumListItemUI> = listOf()
         set(value) {
             val result =
-                DiffUtil.calculateDiff(GistListDiffUtil(oldListInfo = field, newListInfo = value))
+                DiffUtil.calculateDiff(AlbumListDiffUtil(oldListInfo = field, newListInfo = value))
             field = value
             result.dispatchUpdatesTo(this)
         }
@@ -73,7 +73,7 @@ class AlbumRecyclerViewAdapter(private val onBookmarkClicked: (AlbumListItemUI) 
         RecyclerView.ViewHolder(binding.root)
 
 
-    inner class GistListDiffUtil(
+    inner class AlbumListDiffUtil(
         private val oldListInfo: List<AlbumListItemUI>,
         private val newListInfo: List<AlbumListItemUI>
     ) : DiffUtil.Callback() {

@@ -20,8 +20,8 @@ class ITunesRepositoryImpl(
     private val albumBookmarkDao: AlbumBookmarkDao
 ) : BaseRepository(), ITunesRepository {
 
-    override val bookmarkListFlow: Flow<KResult<List<Int>>> = albumBookmarkDao.getAll().map {
-        KResult.Success(it.map { it.collectionId }) as KResult<List<Int>>
+    override val bookmarkListFlow: Flow<KResult<List<String>>> = albumBookmarkDao.getAll().map {
+        KResult.Success(it.map { it.collectionId }) as KResult<List<String>>
     }.catch { e ->
         emit(handleException(e))
     }.flowOn(Dispatchers.IO)
@@ -44,7 +44,7 @@ class ITunesRepositoryImpl(
 
     override suspend fun addBookmarkAsync(
         coroutineScope: CoroutineScope,
-        collectionId: Int
+        collectionId: String
     ): Deferred<KResult<Unit>> {
         return executeAsyncCall(coroutineScope) {
             albumBookmarkDao.insert(albumBookmark = AlbumBookmark(collectionId))
@@ -53,7 +53,7 @@ class ITunesRepositoryImpl(
 
     override suspend fun deleteBookmarkAsync(
         coroutineScope: CoroutineScope,
-        collectionId: Int
+        collectionId: String
     ): Deferred<KResult<Unit>> {
         return executeAsyncCall(coroutineScope) {
             albumBookmarkDao.delete(albumBookmark = AlbumBookmark(collectionId))
